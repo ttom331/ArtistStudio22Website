@@ -42,6 +42,10 @@ class Signup extends Dbh{
 
     }
 
+    protected function specialChars($pwd) {
+        return preg_match('/[^a-zA-Z0-9]/', $pwd) > 0;//checks if not a letter or a number
+    }
+
 }
 
 

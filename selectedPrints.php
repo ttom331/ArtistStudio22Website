@@ -76,7 +76,9 @@ session_start();
             <div class="selected-column" style="margin-top: 5%;">
                 <h1><?php echo htmlspecialchars($row['print_Name']);?></h1>
                 <p><?php echo htmlspecialchars($row['print_Desc']);?></p>
+                <p style="color: red;">Only <?php echo htmlspecialchars($row['print_Stock']);?> left in stock!</p>
                 <h2 class="price">£<?php echo htmlspecialchars($row['print_Price']);?></h2>
+                </p>
                 <form method="post" action="includes/basket.inc.php">
                     <input type="hidden" name="customer_ID" value="<?php echo htmlspecialchars($userID); ?>"/>
                     <input type="hidden" name="print_ID" value="<?php echo htmlspecialchars($row['print_ID']); ?>"/>

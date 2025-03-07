@@ -5,6 +5,7 @@
     if(!isset($_SESSION["userid"])){
         header('Location: index.php');
     }
+    
 ?>
 
 <!DOCTYPE html>
@@ -116,7 +117,12 @@
                 <hr>
                 <ul>
                     <li>
+                        
                     <?php
+                        if (isset($_SESSION['stockError'])) {
+                            echo $_SESSION['stockError'];
+                            unset($_SESSION['stockError']); // Clear the error after displaying
+                        }
                         if (isset($_SESSION['totalCost'])) {
                             ?><h5><?php echo "Basket Total: £" . number_format($_SESSION['totalCost'], 2);?></h5>
                         <?php

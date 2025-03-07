@@ -3,15 +3,14 @@
 
 class SignupContr extends SignUp{
 
-    //varible is a properties
-    //functions are methods
+
 
     private $username;
     private $pwd;
     private $pwdrepeat;
-    private $email;  //chang ethis to watever
+    private $email;  
 
-    public function __construct($username, $pwd, $pwdrepeat, $email){ //these are data grabbed from user
+    public function __construct($username, $pwd, $pwdrepeat, $email){ //data grabbed from user
         $this->username = $username;
         $this->pwd = $pwd;
         $this->pwdrepeat = $pwdrepeat;
@@ -47,6 +46,11 @@ class SignupContr extends SignUp{
         if($this->isPwdLengthValid()== false){
             //username or email taken
             header("location: ../register.php?error=Password length is too short, it must be a minimum of 8 characters!");
+            exit();
+        }
+        if($this->passwordHasSymbol()== false){
+            //username or email taken
+            header("location: ../register.php?error=Password must contain a symbol!");
             exit();
         }
 
@@ -116,6 +120,16 @@ class SignupContr extends SignUp{
         }
         return true; // Password is long enough
     }
+
+    private function passwordHasSymbol(){
+        if ($this->specialChars($this->pwd)) {
+            return true;
+        } else {
+            return false;
+        }    
+    }
+
+
     
 
 }

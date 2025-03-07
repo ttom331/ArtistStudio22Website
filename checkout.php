@@ -33,10 +33,27 @@ if (isset($basket) && $basket) {
 
     $discount = isset($_SESSION['discount']) ? $_SESSION['discount'] : 0;
 
+    include "classes/checkStock.classes.php";
+    $stockChecker = new checkStock(); //new class instence of checkStock.
+
     foreach ($basket as $row) {
         $price = $row['print_Price'] * 100; // Price in pence
         $quantity = htmlspecialchars($row['quantity']);
+        $print_ID = $row['print_ID'];
+
+        $printStock = $stockChecker->getPrintStock($print_ID); //call to getprintstock function in checkstock class
         
+         // Check if there is enough stock
+         if ($quantity > $printStock) {
+            // If there's not enough stock, set a session error and redirect back to the basket page
+            $_SESSION['stockError'] = "Could not complete checkout." . htmlspecialchars($row['print_Name']) . ". Only " . $printStock . " available.";
+            header("Location: basket.php");
+            exit; // Stop further processing
+        }
+
+
+
+
         // Calculate the discounted price
         $discountedPrice = $price - ($price * ($discount / 100));
         
