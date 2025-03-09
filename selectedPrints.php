@@ -23,8 +23,8 @@ session_start();
 
 </head>
 <body>
-    <nav style="background-color: #769164">
-        <div class="topNavigation" id="myTopnav" style="background-color: #769164;">
+    <nav>
+        <div class="topNavigation" id="myTopnav">
             <div class="nav-links">
                 <a href="index.php"><img class="navbar-brand" src="assets/logo.jpg"/></a>
                 <a href="index.php">Home</a>
@@ -61,32 +61,54 @@ session_start();
     </nav>
     <!-- cover image-->
     <div class="coverImage">
-        <img class="img" style="background-size: cover;" src="assets/LW-banner-website-Tomv2v2.jpg" alt="Cover image" />
+        <div class="darkness"></div><!--To add a black cover over image -->
+        <p class="cover-image-header">Prints</p>
+        <img class="img" style="background-size: cover;" src="assets/coverFinal.jpg" alt="Cover image" />
     </div>
     <div class="main-content">
-        <h2>Pet Portraits</h2>
         <hr>
         <div class="row">
             <?php include('classes/selectedPrints.classes.php');
+            include('classes/checkStock.classes.php');
+            $stockCheck = new CheckStock();
             if (isset($print) && $print) {
             foreach ($print as $row) { ?>
+            <?php
+            $print_ID = $row['print_ID'];
+            $stockCheck = $stockCheck->getPrintStock($print_ID);
+            ?>
             <div class="selected-column">
                 <img src="/assets/products/<?php echo htmlspecialchars($row['print_Image']);?>" alt="print image" style="width:100%; height: 80%; object-fit:contain;">
             </div>
             <div class="selected-column" style="margin-top: 5%;">
                 <h1><?php echo htmlspecialchars($row['print_Name']);?></h1>
                 <p><?php echo htmlspecialchars($row['print_Desc']);?></p>
-                <p style="color: red;">Only <?php echo htmlspecialchars($row['print_Stock']);?> left in stock!</p>
+                <?php //out of stock message
+                if ($row['print_Stock'] > 0 || null){
+                    ?>
+                    <p style="color: red;">Only <?php echo htmlspecialchars($row['print_Stock']);?> left in stock!</p>
+                <?php    
+                }else{
+                    ?>
+                    <p style="color: red;">Temporarily out of stock!</p>
+                    <?php
+                }
+                ?>
                 <h2 class="price">£<?php echo htmlspecialchars($row['print_Price']);?></h2>
                 </p>
-                <form method="post" action="includes/basket.inc.php">
+                <form method="post" action="includes/basket.inc.php" class="add-to-basket">
                     <input type="hidden" name="customer_ID" value="<?php echo htmlspecialchars($userID); ?>"/>
                     <input type="hidden" name="print_ID" value="<?php echo htmlspecialchars($row['print_ID']); ?>"/>
                     <input type="hidden" name="print_Name" value="<?php echo htmlspecialchars($row['print_Name']); ?>"/>
                     <input type="hidden" name="print_Img" value="<?php echo htmlspecialchars($row['print_Image']); ?>"/>
                     <input type="hidden" name="print_Price" value="<?php echo htmlspecialchars($row['print_Price']); ?>"/>
-                    <input type="number" name="print_Quantity" value="1" style="padding: 7px; width: 12%;"/>
-                    <button class="addBasketButton1" type="submit" name="submit">Add to Basket</button>
+                    <input type="number" name="print_Quantity" value="1" style="width: 10%;"/>
+                    <?php
+                    if (!$stockCheck > 0 || $stockCheck != null){?>
+                        <button class="addBasketButton1" type="submit" name="submit">Add to Basket</button>
+                    <?php
+                    }
+                    ?>
                 </form>
             </div>
             <?php } }

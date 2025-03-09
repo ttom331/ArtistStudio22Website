@@ -19,7 +19,7 @@
 
 </head>
 <body>
-    <form action="includes/login.inc.php" method="post" style="max-width: 50vw; margin:auto;">
+    <form action="includes/login.inc.php" method="post" style="max-width: 50vw; margin:auto;" class="basic">
         <div class="index-login-signup">
             <img class="login-logo" src="assets/logo-white.jpg" style="max-width: 80px;"/>
             <h2>Login</h2>

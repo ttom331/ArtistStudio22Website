@@ -20,8 +20,8 @@
 
 </head>
 <body>
-    <nav style="background-color: #769164">
-        <div class="topNavigation" id="myTopnav" style="background-color: #769164;">
+    <nav>
+        <div class="topNavigation" id="myTopnav">
             <div class="nav-links">
                 <a href="index.php"><img class="navbar-brand" src="assets/logo.jpg"/></a>
                 <a href="index.php">Home</a>
@@ -56,32 +56,37 @@
             </a>
         </div>
     </nav>
+    <!-- cover image-->
+    <div class="coverImage">
+        <div class="darkness"></div><!--adds black cover over image -->
+        <p class="cover-image-header">Greetings Cards</p>
+        <img class="img" style="background-size: cover;" src="assets/coverFinal.jpg" alt="Cover image" />
+    </div>
     <div class="main-content">
-        <h2>Greetings Cards</h2>
         <hr>
-            <?php include('classes/getCards.classes.php');
-            if (isset($cards) && $cards) {
-            foreach ($cards as $row) { ?>
-            <div class="flex-container">
-                <div class="flex-item-left-greeting" style="margin-top: 5%;">
-                    <li style="list-style:none"><a style="text-decoration: none; color: black;" href="selectedPrints.php?print_ID=<?php echo htmlspecialchars(string: $row['print_ID']);?>"><h3><?php echo htmlspecialchars($row['print_Name']);?></h3></a></li>
-                    <li><p><?php echo htmlspecialchars($row['print_Desc']);?></p></li>
-                    <li><p>£<?php echo htmlspecialchars($row['print_Price']);?></p></li>
-                    <form method="post" action="includes/basket.inc.php">
-                        <input type="hidden" name="customer_ID" value="<?php echo htmlspecialchars($userID); ?>"/>
-                        <input type="hidden" name="print_ID" value="<?php echo htmlspecialchars($row['print_ID']); ?>"/>
-                        <input type="hidden" name="print_Name" value="<?php echo htmlspecialchars($row['print_Name']); ?>"/>
-                        <input type="hidden" name="print_Img" value="<?php echo htmlspecialchars($row['print_Image']); ?>"/>
-                        <input type="hidden" name="print_Price" value="<?php echo htmlspecialchars($row['print_Price']); ?>"/>
-                        <input type="number" name="print_Quantity" value="1" style="padding: 0px; width: 12%;"/>
-                        <button class="addBasketButton1" type="submit" name="submit">Add to Basket</button>
-                    </form>
-                </div>
-                <div class="flex-item-right-greeting">
-                    <img src="/assets/cards/<?php echo htmlspecialchars($row['print_Image']);?>" alt="Denim Jeans" style="width: 100%; height: 400px; object-fit:cover;">
-                </div>
-
+        <?php include('classes/getCards.classes.php');
+        if (isset($cards) && $cards) {
+        foreach ($cards as $row) { ?>
+        <div class="flex-container">
+            <div class="flex-item-left-greeting" style="margin-top: 5%;">
+                <li style="list-style:none"><a style="text-decoration: none; color: black;" href="selectedPrints.php?print_ID=<?php echo htmlspecialchars(string: $row['print_ID']);?>"><h3><?php echo htmlspecialchars($row['print_Name']);?></h3></a></li>
+                <li><p><?php echo htmlspecialchars($row['print_Desc']);?></p></li>
+                <li><p>£<?php echo htmlspecialchars($row['print_Price']);?></p></li>
+                <form method="post" action="includes/basket.inc.php">
+                    <input type="hidden" name="customer_ID" value="<?php echo htmlspecialchars($userID); ?>"/>
+                    <input type="hidden" name="print_ID" value="<?php echo htmlspecialchars($row['print_ID']); ?>"/>
+                    <input type="hidden" name="print_Name" value="<?php echo htmlspecialchars($row['print_Name']); ?>"/>
+                    <input type="hidden" name="print_Img" value="<?php echo htmlspecialchars($row['print_Image']); ?>"/>
+                    <input type="hidden" name="print_Price" value="<?php echo htmlspecialchars($row['print_Price']); ?>"/>
+                    <input type="number" name="print_Quantity" value="1" style="padding: 0px; width: 12%;"/>
+                    <button class="addBasketButton1" type="submit" name="submit">Add to Basket</button>
+                </form>
             </div>
+            <div class="flex-item-right-greeting">
+                <img src="/assets/cards/<?php echo htmlspecialchars($row['print_Image']);?>" alt="Denim Jeans" style="width: 100%; height: 400px; object-fit:cover;">
+            </div>
+
+        </div>
         
 
         <?php } }?>

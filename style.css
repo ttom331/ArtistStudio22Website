@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&display=swap');
 
 body{
     margin: 0;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Assistant", sans-serif;
     padding: 0;
     max-width: 100vw; /* Prevent body from exceeding viewport width */
     overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -15,7 +16,6 @@ body{
 
 .topNavigation{
     overflow: hidden;
-    background-color: #333;
     margin: auto;
     max-width: 1000px;
 }
@@ -24,11 +24,11 @@ body{
     align-items: center;
     float: left;
     display: flex;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 10px 14px;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 12px;
     list-style-type: none;
     line-height: 50px; /* Match this with the logo height for vertical alignment */
     transition: .5s;
@@ -44,9 +44,7 @@ body{
 }
 
 .topNavigation a:hover {
-    background-color: #ddd;
-    color: black;
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .topNavigation .icon {
@@ -73,7 +71,7 @@ body{
     }
   }
 
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 850px) {
     .topNavigation.responsive {position: relative;}
     .topNavigation.responsive .icon {
     position: absolute;
@@ -110,10 +108,35 @@ body{
 
 
 /* cover image */
+
+.coverImage{
+  position: relative;
+}
+
+.darkness{
+  background-color: black;
+  height: 70vh;
+  width: 100%;
+  position: absolute;
+  opacity: 40%;
+}
 .coverImage img{
   height: 70vh;
   width: 100%;
 }
+
+.cover-image-header{
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  color: white; 
+  font-size: 60px; 
+  font-weight: bold; 
+  text-align: center;
+}
+
+
 
 .main-heading h2{
   text-align: center;
@@ -168,7 +191,7 @@ body{
 }
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
+form.basic input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -177,7 +200,7 @@ input[type=text], input[type=password] {
   background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+form.basic input[type=text]:focus, input[type=password]:focus {
   background-color: #d0d0d0;
   outline: none;
 }
@@ -253,8 +276,33 @@ footer{
 }
 
 
+/* Search bar and search nar buttomn */
 
+form.searchbar{
+  display: flex;
+  width: 100%;
+}
 
+form.searchbar input[type=text] {
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid grey;
+  width: 80%;
+  background: #f1f1f1;
+  height: 50px;
+}
+
+form.searchbar button {
+  padding: 10px;
+  background: #769164;;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+  width: 20%;
+  height: 50px;
+}
 
 .footer{
   margin: auto;
@@ -401,8 +449,34 @@ footer{
 }
 
 
-.addBasketButton{
+form.add-to-basket{
+  text-align: center;
+  justify-content: center;
+}
+
+form.searchbar input[type=text] {
+  padding: 5px;
+  font-size: 15px;
+  border: 1px solid grey;
+  background: #f1f1f1;
+  height: 50px;
+}
+
+form.searchbar button {
   padding: 10px;
+  background: #769164;;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+  height: 50px;
+}
+
+
+
+
+.addBasketButton{
   background-color: #769164;
   border: none;
   cursor: pointer;
@@ -451,6 +525,17 @@ footer{
 
 /*  basket column*/
 
+.basket-form {
+  display: flex;
+  align-items: center; 
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center; /* Vertically align the quantity input and submit button */
+}
+
+
 /* account page column */
 
 /* selected print add to basket*/
@@ -470,6 +555,25 @@ footer{
 .addBasketButton1:hover{
   background-color: #446031;
 }
+
+/* no stock button*/
+
+
+.noStockBasketButton{
+  margin-top: 3%;
+  background-color: #575757;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 1.3rem;
+  width: 35%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+
+
 
 
 .checkoutButton{

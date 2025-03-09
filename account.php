@@ -20,8 +20,8 @@
     
 </head>
 <body>
-    <nav style="background-color: #769164">
-        <div class="topNavigation" id="myTopnav" style="background-color: #769164;">
+    <nav>
+        <div class="topNavigation" id="myTopnav">
             <div class="nav-links">
                 <a href="index.php"><img class="navbar-brand" src="assets/logo.jpg"/></a>
                 <a href="index.php" style="text-decoration: underline;">Home</a>
@@ -57,7 +57,9 @@
     </nav>
     <!-- cover image-->
     <div class="coverImage">
-        <img class="img" style="background-size: cover;" src="assets/LW-banner-website-Tomv2v2.jpg" alt="Cover image" />
+        <div class="darkness"></div>
+        <p class="cover-image-header">My Account</p>
+        <img class="img" style="background-size: cover;" src="assets/coverFinal.jpg" alt="Cover image" />
     </div>
     <div class="main-content">
         <h2>My Account</h2>

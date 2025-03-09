@@ -24,8 +24,8 @@
 
 </head>
 <body>
-<nav style="background-color: #769164">
-        <div class="topNavigation" id="myTopnav" style="background-color: #769164">
+<nav>
+        <div class="topNavigation" id="myTopnav">
             <div class="nav-links">
                 <a href="index.php"><img class="navbar-brand" src="assets/logo.jpg"/></a>
                 <a href="index.php" style="text-decoration: underline;">Home</a>
@@ -60,15 +60,28 @@
         </div>
     </nav>
     <!-- cover image-->
+    <div class="coverImage">
+        <div class="darkness"></div><!--To add a black cover over image -->
+        <p class="cover-image-header">My Basket</p>
+        <img class="img" style="background-size: cover;" src="assets/coverFinal.jpg" alt="Cover image" />
+    </div>
     <div class="main-content">
         <div class="flex-container">
             <div class="flex-item-left">
-                <h4>My Basket</h4>
                 <hr>
                 <!--get session for basket -->
                 <?php include('classes/getBasketitems.php');
+                include('classes/checkStock.classes.php');
+                $stockCheckerBasket = new checkStock(); //new class instence of checkStock.
                 if (isset($basket) && $basket) {
-                    foreach ($basket as $row) { ?>
+                    foreach ($basket as $row) { 
+                        $print_ID = $row['print_ID'];
+                        $quantity = htmlspecialchars($row['quantity']);
+                        $printStock = $stockCheckerBasket->getPrintStock($print_ID); //call to getprintstock function in checkstock class
+                        if ($quantity > $printStock){
+                            $_SESSION['stock_error'] = "Invalid quantity in basket. There are only " . $printStock . " left in stock!";
+                        }
+                        ?>
 
                 <ul>
                     <li style="text-align: center;">
@@ -80,12 +93,15 @@
                     <li>
                         <small style="color: black;"><span>£</span><?php echo number_format($row['print_Price'] * $row['quantity'],2);?></small>
                     </li>
+                    
                     <li><!--edit quantity of the product -->
-                        <form method="POST" action="includes/basket-edit.inc.php">
+                        <form method="POST" action="includes/basket-edit.inc.php" class="basket-form">
                             <input type="hidden" name="basket_ID" value="<?php echo $row['basket_ID'];?>"/>
                             <input type="hidden" name="customer_ID" value="<?php echo $row['user_id']; ?>"/>
-                            <input name="quantity" type="number" style="width: 25%;" value="<?php echo $row['quantity']; ?>"/>
-                            <input type="submit" class="basketButtons" value="Edit" name="edit_Quantity"/>
+                            <div class="quantity-container">
+                                <input name="quantity" type="number" style="width: 20%;" class="quantity-input" value="<?php echo $row['quantity']; ?>" />
+                                <input type="submit" class="basketButtons" value="Edit" name="edit_Quantity"/>
+                            </div>
                         </form>
                     </li>
                     <li>
@@ -97,6 +113,14 @@
                         </form>
                     </li>
                 </ul>
+                <?php
+                        if (isset($_SESSION['stock_error'])) {
+                            ?><p style="font-size: 12px; color: red;"><?php echo $_SESSION['stock_error']; ?></p>
+                            <?php
+                            unset($_SESSION['stock_error']); // Clear the error after displaying
+                        }
+                        ?>
+
                 <?php } }?>
             <?php if (empty($basket) ) {
             ?> 
@@ -159,7 +183,7 @@
                             <input type="submit" class="basketButtons" value="Apply" name="promo"/>
                         </form>
                     </li>
-                    <form method="POST" action="checkout.php">
+                    <form method="POST" action="checkout.php" class="basic">
                         <li>
                             <h2>Delivery Address</h2>
                             <hr>

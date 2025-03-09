@@ -20,8 +20,8 @@
 
 </head>
 <body>
-<nav style="background-color: #769164">
-        <div class="topNavigation" id="myTopnav" style="background-color: #769164;">
+<nav>
+        <div class="topNavigation" id="myTopnav">
             <div class="nav-links">
                 <a href="index.php"><img class="navbar-brand" src="assets/logo.jpg"/></a>
                 <a href="index.php">Home</a>
@@ -57,10 +57,11 @@
     </nav>
     <!-- cover image-->
     <div class="coverImage">
-        <img class="img" style="background-size: cover;" src="assets/LW-banner-website-Tom---pet-portraits2.jpg" alt="Cover image" />
+        <div class="darkness"></div><!--To add a black cover over image -->
+        <p class="cover-image-header">Pet Portraits</p>
+        <img class="img" style="background-size: cover;" src="assets/coverFinal.jpg" alt="Cover image" />
     </div>
     <div class="main-content">
-        <h2>Pet Portraits</h2>
         <hr>
         <div class="main-content2 reveal">
             <p style="text-align: center;">Currently booked up until January/February 2025. Commissions currently open.

@@ -19,8 +19,8 @@
 
 </head>
 <body>
-<nav style="background-color: #769164">
-        <div class="topNavigation" id="myTopnav" style="background-color: #769164;">
+<nav>
+        <div class="topNavigation" id="myTopnav">
             <div class="nav-links">
                 <a href="index.php"><img class="navbar-brand" src="assets/logo.jpg"/></a>
                 <a href="index.php">Home</a>
@@ -56,11 +56,16 @@
     </nav>
     <!-- cover image-->
     <div class="coverImage">
-        <img class="img" style="background-size: cover;" src="assets/LW-banner-website-Tomv2v2.jpg" alt="Cover image" />
+        <div class="darkness"></div><!--To add a black cover over image -->
+        <p class="cover-image-header">Prints</p>
+        <img class="img" style="background-size: cover;" src="assets/coverFinal.jpg" alt="Cover image" />
     </div>
     <div class="main-content">
-        <h2>Prints</h2>
         <hr>
+        <form class="searchbar" action="classes/getPr">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
         <div class="row">
             <?php include('classes/getPrints.classes.php');
             if (isset($prints) && $prints) {
