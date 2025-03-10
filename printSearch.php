@@ -1,12 +1,8 @@
 <?php
 
-
-session_start();
-
+    session_start();
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,59 +60,41 @@ session_start();
     </div>
     <div class="main-content">
         <hr>
+        <form class="searchbar" action="printSearch.php" method="GET">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
         <div class="row">
-            <?php include('classes/selectedPrints.classes.php');
-            include('classes/checkStock.classes.php');
-            $stockCheck = new CheckStock();
-            if (isset($print) && $print) {
-            foreach ($print as $row) { ?>
-            <?php
-            $print_ID = $row['print_ID'];
-            $stockCheck = $stockCheck->getPrintStock($print_ID);
+            
+            <?php include('classes/getPrintSearch.classes.php');
+            $search = $_GET['search'];
+            $search_result = $_GET['search'];
+            $getPrints = new GetPrintSearch();
+            $search = $getPrints->search($search);
+            if (isset($search) && $search) {
+            foreach ($search as $row) {
+                $_SESSION['search_message'] = "Search results for '" . $search_result . "'"; ?>
+                <p class="search-success"><?php echo($_SESSION['search_message'])?></p>
+            <div class="column-prints">
+                <div class="card1">
+                    <ul>
+                        <img src="/assets/products/<?php echo htmlspecialchars($row['print_Image']);?>" alt="Denim Jeans" style="width:100%;">
+                        <li style="list-style:none"><a style="text-decoration: none; color: black;" href="selectedPrints.php?print_ID=<?php echo htmlspecialchars(string: $row['print_ID']);?>"><h3><?php echo htmlspecialchars($row['print_Name']);?></h3></a></li>
+                    </ul>
+                </div>
+            </div>
+            <?php } }?>
+            <?php if(empty($search)){
+                $_SESSION['search_message'] = "Sorry, we can't find any results for '" . $search_result . "'";
+                ?>
+                
+                <p class="search-error"><?php echo($_SESSION['search_message'])?></p>
+                <?php
+            }
             ?>
-            <div class="selected-column">
-                <img src="/assets/products/<?php echo htmlspecialchars($row['print_Image']);?>" alt="print image" style="width:100%; height: 80%; object-fit:contain;">
-            </div>
-            <div class="selected-column" style="margin-top: 5%;">
-                <h1><?php echo htmlspecialchars($row['print_Name']);?></h1>
-                <p><?php echo htmlspecialchars($row['print_Desc']);?></p>
-                <?php //out of stock message
-                if ($row['print_Stock'] > 0 || null){
-                    ?>
-                    <p style="color: red;">Only <?php echo htmlspecialchars($row['print_Stock']);?> left in stock!</p>
-                <?php    
-                }else{
-                    ?>
-                    <p style="color: red;">Temporarily out of stock!</p>
-                    <?php
-                }
-                ?>
-                <h2 class="price">£<?php echo htmlspecialchars($row['print_Price']);?></h2>
-                </p>
-                <form method="post" action="includes/basket.inc.php" class="add-to-basket">
-                    <input type="hidden" name="customer_ID" value="<?php echo htmlspecialchars($userID); ?>"/>
-                    <input type="hidden" name="print_ID" value="<?php echo htmlspecialchars($row['print_ID']); ?>"/>
-                    <input type="hidden" name="print_Name" value="<?php echo htmlspecialchars($row['print_Name']); ?>"/>
-                    <input type="hidden" name="print_Img" value="<?php echo htmlspecialchars($row['print_Image']); ?>"/>
-                    <input type="hidden" name="print_Price" value="<?php echo htmlspecialchars($row['print_Price']); ?>"/>
-                    <input type="number" name="print_Quantity" value="1" style="width: 10%;"/>
-                    <?php
-                    if (!$stockCheck > 0 || $stockCheck != null){?>
-                        <button class="addBasketButton1" type="submit" name="submit">Add to Basket</button>
-                    <?php
-                    }
-                    ?>
-                </form>
-            </div>
-            <?php } }
-            else{
-                ?>
-                <p></p>
-            <?php }?>
         </div>
     </div>
-    
-    
+
 
 
 <script>

@@ -20,40 +20,37 @@
 
 </head>
 <body>
-    <nav>
-        <div class="topNavigation" id="myTopnav">
-            <div class="nav-links">
-                <a href="index.php"><img class="navbar-brand" src="assets/logo.jpg"/></a>
-                <a href="index.php">Home</a>
-                <a href="petPortrait.php">Pet Portraits</a>
-                <a href="prints.php">Prints</a>
-                <a href="greetingCards.php" style="text-decoration: underline;">Greetings Cards</a>
-                <a href="contact.php">Contact</a>
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                <i class="fa fa-bars"></i>
-                <div class="nav-links-right">
-                <?php 
+<nav>
+        <a class="logo" href="index.php"><img src="assets/logo.jpg"/></a>
+        <ul class="nav-links">
+            <li><a href="index.php" style="text-decoration: underline;">Home</a></li>
+            <li><a href="petPortrait.php">Pet Portraits</a></li>
+            <li><a href="prints.php">Prints</a></li>
+            <li><a href="greetingCards.php" style="text-decoration: underline;">Greetings Cards</a></li>
+            <li><a href="contact.php">Contact</a></li>
+        </ul>
+        <div class="right-nav">
+        <?php 
                     if(isset($_SESSION["userid"]))
                     {
-                        $userID = $_SESSION['userid'];
                         
-                ?>  <a href="account.php" class="right-side" style=>My Account</a>
-                    <form class="" action="logout.php" method="post" style="display:inline-flex; display: contents;">
-                        <a href="includes/logout.inc.php" class="right-side">Sign Out</a>
-                    </form>
-                    <a href="basket.php" class="right-side"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z"/></svg></a>
-                <?php
+                ?> 
+            <a href="account.php" class="nav-btn-no-style" style=>My Account</a>
+            <a href="basket.php" class="nav-btn-no-style"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z"/></svg></a>
+            <form class="" action="logout.php" method="post" style="display:inline-flex; display: contents;">
+                <a href="includes/logout.inc.php" class="nav-btn">Sign Out</a>
+            </form>
+            <i class="fa fa-bars" id="ham-menu"></i>
+            <?php
                     }
                     else
                     {
                 ?>
-                    <a href="login.php" class="right-side">Sign In</a>
+                   <a href="login.php" class="nav-btn">Sign In</a>
+                   <i class="fa fa-bars" id="ham-menu"></i>
                 <?php
                     }
                 ?>
-                </div>
-            </div>
-            </a>
         </div>
     </nav>
     <!-- cover image-->
