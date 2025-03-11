@@ -19,76 +19,27 @@
     <title>Studio22Artz</title>
 </head>
 <body>
-<nav style="background-color: #c30f16">
-        <div class="topNavigation" id="myTopnav" style="background-color: #c30f16;">
-            <div class="nav-links">
-                <a href="index.php"><img class="navbar-brand" src="assets/logo-red.jpg"/></a>
-                <a href="index.php" style="text-decoration: underline;">Home</a>
-                <a href="petPortrait.php">Pet Portraits</a>
-                <a href="prints.php">Prints</a>
-                <a href="greetingCards.php">Greetings Cards</a>
-                <a href="contact.php">Contact</a>
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                <i class="fa fa-bars"></i>
-                <div class="nav-links-right">
-                <?php 
-                    if(isset($_SESSION["userid"]))
-                    {
-                        
-                ?>  <a href="account.php" class="right-side" style=>My Account</a>
-                    <form class="" action="logout.php" method="post" style="display:inline-flex; display: contents;">
-                        <a href="includes/logout.inc.php" class="right-side">Sign Out</a>
-                    </form>
-                    <a href="basket.php" class="right-side"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z"/></svg></a>
-                <?php
-                    }
-                    else
-                    {
-                ?>
-                    <a href="login.php" class="right-side">Sign In</a>
-                <?php
-                    }
-                ?>
+
+<hr>
+        <form class="searchbar" action="printSearch.php" method="GET">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <div class="row">
+            <?php include('classes/getPrints.classes.php');
+            if (isset($prints) && $prints) {
+            foreach ($prints as $row) { ?>
+            <div class="column-prints">
+                <div class="card1">
+                    <ul>
+                        <img src="/assets/products/<?php echo htmlspecialchars($row['print_Image']);?>" alt="Denim Jeans" style="width:100%;">
+                        <li style="list-style:none"><a class="print-name-head" href="selectedPrints.php?print_ID=<?php echo htmlspecialchars(string: $row['print_ID']);?>"><p><?php echo htmlspecialchars($row['print_Name']);?></p></a></li>
+                        <p class="print-price-tag">£<?php echo htmlspecialchars($row['print_Price']);?></p>
+                    </ul>
                 </div>
             </div>
-            </a>
+            <?php } }?>
         </div>
-    </nav>
-    <!-- cover image-->
-    <div class="main-content">
-        <h2>Christmas</h2>
-        <hr style="border-color: #c30f16;">
-        <div class="main-content">
-        <h2>Greetings Cards</h2>
-        <hr>
-        <div class="flex-container">
-            <?php include('classes/getCards.classes.php');
-            if (isset($cards) && $cards) {
-            foreach ($cards as $row) { ?>
-            <div class="flex-item-left-greeting" style="margin-top: 5%;">
-                <li style="list-style:none"><a style="text-decoration: none; color: black;" href="selectedPrints.php?print_ID=<?php echo htmlspecialchars(string: $row['print_ID']);?>"><h3><?php echo htmlspecialchars($row['print_Name']);?></h3></a></li>
-                <li><p><?php echo htmlspecialchars($row['print_Desc']);?></p></li>
-                <li><p>£<?php echo htmlspecialchars($row['print_Price']);?></p></li>
-                <form method="post" action="includes/basket.inc.php">
-                    <input type="hidden" name="customer_ID" value="<?php echo htmlspecialchars($userID); ?>"/>
-                    <input type="hidden" name="print_ID" value="<?php echo htmlspecialchars($row['print_ID']); ?>"/>
-                    <input type="hidden" name="print_Name" value="<?php echo htmlspecialchars($row['print_Name']); ?>"/>
-                    <input type="hidden" name="print_Img" value="<?php echo htmlspecialchars($row['print_Image']); ?>"/>
-                    <input type="hidden" name="print_Price" value="<?php echo htmlspecialchars($row['print_Price']); ?>"/>
-                    <input type="number" name="print_Quantity" value="1" style="padding: 0px; width: 12%;"/>
-                    <button class="addBasketButton1" type="submit" name="submit">Add to Basket</button>
-                </form>
-            </div>
-            <div class="flex-item-right-greeting">
-                <img src="/assets/cards/<?php echo htmlspecialchars($row['print_Image']);?>" alt="Denim Jeans" style="width: 100%; height: 100%;">
-            </div>
-        </div>
-
-        <?php } }?>
-    </div>
-    
-    
-
     </div>
     
 
