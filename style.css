@@ -8,6 +8,12 @@ body{
     max-width: 100vw; /* Prevent body from exceeding viewport width */
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
+
 nav{
   position: fixed;
   background-color: #fff;
@@ -59,7 +65,7 @@ nav{
 
 .nav-btn{
   display: inline-block;
-  padding: 5px 14px;
+  padding: 1px 20px;
   background: transparent;
   border: 2px solid;
   color: black;
@@ -102,7 +108,7 @@ nav{
 }
 
 
-@media(max-width: 950px){
+@media screen and (max-width: 950px){
   #ham-menu{
     display: block;
   }
@@ -139,7 +145,15 @@ nav{
 
 .main-content{
   margin: auto;
-  max-width: 1000px;
+  max-width: 900px;
+}
+
+@media(max-width: 950px){
+  .main-content{
+    text-align: center;
+    max-width: none;
+    margin: 0;
+  }
 }
 
 .main-content h2{
@@ -431,6 +445,10 @@ form.searchbar button {
 
 /*print column*/
 
+
+
+
+
 .column-prints{
     float: left;
     width: 25%;
@@ -438,9 +456,7 @@ form.searchbar button {
     text-align: center;
 }
 
-.column-prints h1{
-  padding: 10px;
-}
+
 
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 1200px) {
@@ -472,11 +488,21 @@ form.searchbar button {
 
 .card1 img {
   width: 100%; /* Make sure images fill the width */
-  height: 200px; /* Set a fixed height for uniformity */
-  object-fit: contain; /* Cover the area while maintaining aspect ratio */
+  height: 280px; /* Set a fixed height for uniformity */
+  object-fit:fill; /* Cover the area while maintaining aspect ratio */
   opacity: 1;
 }
 
+.print-name-head{
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+}
+
+.print-price-tag{
+  font-size: 18px;
+  font-weight: 600;
+}
 .card1 button{
   padding: 10px;
   background-color: #769164;
@@ -486,25 +512,84 @@ form.searchbar button {
   color: white;
 }
 
+/*selected print page*/ 
 
-/*  */
-.selected-column{
-    float: left;
-    width: 50%;
-    padding: 10px;
-    text-align: center;
+.selected-print{
+  display: flex;
+  top: 0;
+  right: 0;
 }
 
 
-@media screen and (max-width: 800px) {
-  .selected-column {
-    width: 100%;
+.right-side{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px 10px; /* Apply padding only to left and right */
+
+}
+
+.selected-header{
+  font-size: 35px;
+  font-weight: 600;
+}
+
+.selected-price{
+  font-size: 18px;
+  font-weight: 400;
+  padding: 10px 0;
+}
+
+.selected-desc{
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 0;
+}
+
+@media screen and (max-width: 950px){
+  .selected-print{
+    display: block;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+  form.add-to-basket{
+    align-items: center;
+    justify-content: center;
+
   }
 }
 
 
+/* selected print add to basket*/
+
+.addBasketButton1{
+  background-color: #769164;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 1.3rem;
+  width: 100%;
+  padding: 2px;
+  padding-bottom: 2px;
+}
+
+.addBasketButton1:hover{
+  background-color: #446031;
+}
+
+
+
+
+form.add-to-basket input, 
+form.add-to-basket button {
+  margin: 0; /* Reset margin */
+}
+
+
 form.add-to-basket{
-  text-align: center;
+  display: flex;
+  flex-direction: column; /* Arrange items vertically */
   justify-content: center;
   position: relative;
 }
@@ -594,23 +679,7 @@ form.searchbar button {
 
 /* account page column */
 
-/* selected print add to basket*/
 
-.addBasketButton1{
-  margin-top: 3%;
-  background-color: #769164;
-  border: none;
-  cursor: pointer;
-  color: white;
-  font-size: 1.3rem;
-  width: 35%;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.addBasketButton1:hover{
-  background-color: #446031;
-}
 
 /* no stock button*/
 

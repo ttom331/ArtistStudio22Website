@@ -39,8 +39,8 @@ session_start();
                         $userID = $_SESSION['userid'];
                         
                 ?> 
-            <a href="account.php" class="nav-btn-no-style" style=>My Account</a>
-            <a href="basket.php" class="nav-btn-no-style"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z"/></svg></a>
+            <a href="account.php" class="nav-btn-no-style" style=><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path></svg></a>
+            <a href="basket.php" class="nav-btn-no-style"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 22h14c1.103 0 2-.897 2-2V9a1 1 0 0 0-1-1h-3V7c0-2.757-2.243-5-5-5S7 4.243 7 7v1H4a1 1 0 0 0-1 1v11c0 1.103.897 2 2 2zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v1H9V7zm-4 3h2v2h2v-2h6v2h2v-2h2l.002 10H5V10z"></path></svg></a>
             <form class="" action="logout.php" method="post" style="display:inline-flex; display: contents;">
                 <a href="includes/logout.inc.php" class="nav-btn">Sign Out</a>
             </form>
@@ -65,55 +65,64 @@ session_start();
     </div>
     <div class="main-content">
         <hr>
-        <div class="row">
-            <?php include('classes/selectedPrints.classes.php');
+    
+        <div class="selected-print">
+        <?php include('classes/selectedPrints.classes.php');
             include('classes/checkStock.classes.php');
-            $stockCheck = new CheckStock();
+            $stockCheck = new CheckStock();//new instance of stock check class
+            $duplicate = new DuplicateItem();//new instance of duplicate item class
             if (isset($print) && $print) {
             foreach ($print as $row) { ?>
             <?php
             $print_ID = $row['print_ID'];
+            $print_Name = $row['print_Name'];
             $stockCheck = $stockCheck->getPrintStock($print_ID);
-            ?>
-            <div class="selected-column">
-                <img src="/assets/products/<?php echo htmlspecialchars($row['print_Image']);?>" alt="print image" style="width:100%; height: 80%; object-fit:contain;">
+            $duplicate = $duplicate->checkDuplicate($print_Name, $userID);?>
+            <div class="left-side">
+                <img src="/assets/products/<?php echo htmlspecialchars($row['print_Image']);?>" alt="print image" style="width:500px; height: 600px; object-fit:fill;">
             </div>
-            <div class="selected-column" style="margin-top: 5%;">
-                <h1><?php echo htmlspecialchars($row['print_Name']);?></h1>
-                <p><?php echo htmlspecialchars($row['print_Desc']);?></p>
-                <?php //out of stock message
-                if ($row['print_Stock'] > 0 || null){
-                    ?>
-                    <p style="color: red;">Only <?php echo htmlspecialchars($row['print_Stock']);?> left in stock!</p>
-                <?php    
-                }else{
-                    ?>
-                    <p style="color: red;">Temporarily out of stock!</p>
-                    <?php
-                }
-                ?>
-                <h2 class="price">£<?php echo htmlspecialchars($row['print_Price']);?></h2>
-                </p>
+            <div class="right-side">
+            <p class="selected-header"><?php echo htmlspecialchars($row['print_Name']);?></p>
+            <p class="selected-price">£<?php echo htmlspecialchars($row['print_Price']);?></p>
+                <p>Quantity</p>
                 <form method="post" action="includes/basket.inc.php" class="add-to-basket">
                     <input type="hidden" name="customer_ID" value="<?php echo htmlspecialchars($userID); ?>"/>
                     <input type="hidden" name="print_ID" value="<?php echo htmlspecialchars($row['print_ID']); ?>"/>
                     <input type="hidden" name="print_Name" value="<?php echo htmlspecialchars($row['print_Name']); ?>"/>
                     <input type="hidden" name="print_Img" value="<?php echo htmlspecialchars($row['print_Image']); ?>"/>
                     <input type="hidden" name="print_Price" value="<?php echo htmlspecialchars($row['print_Price']); ?>"/>
-                    <input type="number" name="print_Quantity" value="1" style="width: 10%;"/>
+                    <input type="number" name="print_Quantity" value="1" style="width: 20%; margin: 10px 0;"/>
+                    <?php //out of stock message
+                    if ($row['print_Stock'] > 0 || null){
+                        ?>
+                        <p style="color: red;">Only <?php echo htmlspecialchars($row['print_Stock']);?> left in stock!</p>
+                    <?php    
+                    }else{
+                        ?>
+                        <p style="color: red;">Temporarily out of stock!</p>
+                        <?php
+                    }
+                    ?>
+                    <!-- end of out of stock code -->
                     <?php
-                    if (!$stockCheck > 0 || $stockCheck != null){?>
+                    if ($stockCheck > 0 && $duplicate == 0){
+                        ?>
                         <button class="addBasketButton1" type="submit" name="submit">Add to Basket</button>
                     <?php
                     }
+                    if ($duplicate == 1){?>
+                        <p>Print is already in your basket!</p>
+                        <?php
+                    }
                     ?>
                 </form>
-            </div>
-            <?php } }
+                <?php } }
             else{
                 ?>
                 <p></p>
             <?php }?>
+            <p class="selected-desc"><?php echo htmlspecialchars($row['print_Desc']);?></p>
+            </div>
         </div>
     </div>
     
