@@ -26,13 +26,14 @@
             <li><a href="index.php" style="text-decoration: underline;">Home</a></li>
             <li><a href="petPortrait.php">Pet Portraits</a></li>
             <li><a href="prints.php">Prints</a></li>
-            <li><a href="greetingCards.php" style="text-decoration: underline;">Greetings Cards</a></li>
+            <li><a href="greetingCards.php">Greetings Cards</a></li>
             <li><a href="contact.php">Contact</a></li>
         </ul>
         <div class="right-nav">
         <?php 
                     if(isset($_SESSION["userid"]))
                     {
+                        $userID = $_SESSION['userid'];
                         
                 ?> 
             <a href="account.php" class="nav-btn-no-style" style=>My Account</a>
@@ -53,6 +54,8 @@
                 ?>
         </div>
     </nav>
+    
+
     <!-- cover image-->
     <div class="coverImage">
         <div class="darkness"></div><!--adds black cover over image -->

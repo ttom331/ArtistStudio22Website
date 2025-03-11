@@ -72,9 +72,10 @@
             $getPrints = new GetPrintSearch();
             $search = $getPrints->search($search);
             if (isset($search) && $search) {
-            foreach ($search as $row) {
                 $_SESSION['search_message'] = "Search results for '" . $search_result . "'"; ?>
                 <p class="search-success"><?php echo($_SESSION['search_message'])?></p>
+                <?php
+            foreach ($search as $row) {?>
             <div class="column-prints">
                 <div class="card1">
                     <ul>

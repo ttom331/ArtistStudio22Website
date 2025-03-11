@@ -506,6 +506,7 @@ form.searchbar button {
 form.add-to-basket{
   text-align: center;
   justify-content: center;
+  position: relative;
 }
 
 form.searchbar input[type=text] {
@@ -514,6 +515,7 @@ form.searchbar input[type=text] {
   border: 1px solid grey;
   background: #f1f1f1;
   height: 50px;
+
 }
 
 form.searchbar button {

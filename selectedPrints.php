@@ -36,6 +36,7 @@ session_start();
         <?php 
                     if(isset($_SESSION["userid"]))
                     {
+                        $userID = $_SESSION['userid'];
                         
                 ?> 
             <a href="account.php" class="nav-btn-no-style" style=>My Account</a>
