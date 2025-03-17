@@ -33,9 +33,12 @@
         <?php 
                     if(isset($_SESSION["userid"]))
                     {
+                        $userID = $_SESSION['userid'];
+                        $username = $_SESSION['user_username'];
+                        $first_letter = substr($username, 0, 1)
                         
                 ?> 
-            <a href="account.php" class="nav-btn-no-style" style=><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path></svg></a>
+            <a href="account.php" class="account-icon" style="text-transform: uppercase; color: black; font-weight: 600;"><p><?php echo $first_letter?></p></a>
             <a href="basket.php" class="nav-btn-no-style"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 22h14c1.103 0 2-.897 2-2V9a1 1 0 0 0-1-1h-3V7c0-2.757-2.243-5-5-5S7 4.243 7 7v1H4a1 1 0 0 0-1 1v11c0 1.103.897 2 2 2zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v1H9V7zm-4 3h2v2h2v-2h6v2h2v-2h2l.002 10H5V10z"></path></svg></a>
             <form class="" action="logout.php" method="post" style="display:inline-flex; display: contents;">
                 <a href="includes/logout.inc.php" class="nav-btn">Sign Out</a>
@@ -57,7 +60,7 @@
     <div class="coverImage">
         <div class="darkness"></div><!--To add a black cover over image -->
         <p class="cover-image-header">Pet Portraits</p>
-        <img class="img" style="background-size: cover;" src="assets/coverFinal.jpg" alt="Cover image" />
+        <img class="img" style="background-size: cover;" src="assets/LW-banner-website-Tom---pet-portraits2.jpg" alt="Cover image" />
     </div>
     <div class="main-content">
         <hr>
@@ -82,22 +85,22 @@
             You can see more of my work closer up on my social media pages (Twitter/Facebook/Instagram): search Lisa Wellwood Artist</p>
 
             <div class="row"> 
-                <div class="column">
+                <div class="column-pet">
                     <img src="/assets/petPortraits/IMG_0366.jpg" style="width:100%">
                     <img src="/assets/petPortraits/IMG_2456.jpg" style="width:100%">
                     <img src="/assets/petPortraits/IMG_2595.jpg" style="width:100%">
                 </div>
-                <div class="column">
+                <div class="column-pet">
                     <img src="/assets/petPortraits/IMG_3021.jpg" style="width:100%">
                     <img src="/assets/petPortraits/IMG_3022.jpg" style="width:100%">
                     <img src="/assets/petPortraits/IMG_3027.jpg" style="width:100%">
                 </div> 
-                <div class="column">
+                <div class="column-pet">
                     <img src="/assets/petPortraits/IMG_3028.jpg" style="width:100%">
                     <img src="/assets/petPortraits/IMG_3029.jpg" style="width:100%">
                     <img src="/assets/petPortraits/IMG_9586.jpg" style="width:100%">
                 </div>
-                <div class="column">
+                <div class="column-pet">
                     <img src="/assets/petPortraits/IMG_3091.jpg" style="width:100%">
                     <img src="/assets/petPortraits/IMG_9529.jpg" style="width:100%">
                     <img src="/assets/petPortraits/IMG_6718-2.jpg" style="width:100%">

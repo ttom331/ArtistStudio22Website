@@ -19,7 +19,7 @@
 
 </head>
 <body>
-    <form action="includes/signup.inc.php" method="post" style="max-width: 50vw; margin:auto;">
+    <form class="basic" action="includes/signup.inc.php" method="post" style="max-width: 50vw; margin:auto;">
         <div class="index-login-signup">
             <img class="login-logo" src="assets/logo-white.jpg" style="max-width: 80px;"/>
             <h2>Register</h2>
@@ -34,6 +34,8 @@
             <input type="text" name="email" placeholder="Email">
             <p style="color:red" class="text-center"><?php if(isset($_GET['error'])){ echo $_GET['error'];}?></p>
             <button class="register-button" type="submit" name="submit">Sign Up</button>
+            <a href="login.php"><p style="text-align:center; text-decoration: none;">Already have an account? Login here!</p></a>
+
         </div>
     </form>
 

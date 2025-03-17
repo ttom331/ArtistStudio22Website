@@ -4,6 +4,8 @@
 
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +23,8 @@
 <body>
   <div class="index-login-signup" style="max-width: 50vw; margin:auto;">
       <img class="login-logo" src="assets/logo-white.jpg" style="max-width: 80px;"/>
-      <h2>Register Success</h2>
-      <p style="text-align: center;">You have registered your account successfully. Click the sign in button below to sign into your account!</p>
+      <h2 style="font-weight: 700;">Verify your email</h2>
+      <p style="text-align: center;">We sent an email to your email. Once verified you will then be able to sign in.</p>
       <hr>
       <a href="login.php"><button class="register-button" type="submit" name="submit">Sign In</button></a>
   </div>

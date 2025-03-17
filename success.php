@@ -46,10 +46,11 @@ try {
         $orderTotal = $_SESSION['totalCostorder'];
         $orderStatus = "Paid";
         $orderDate = date('Y-m-d H:i:s');
+        $discount = $_SESSION['discount'];
         
 
 
-        $order = new OrderContr($customer_ID, $address1, $address2, $town, $postcode, $orderTotal, $orderStatus, $orderDate); //create object from the logincontr class
+        $order = new OrderContr($customer_ID, $address1, $address2, $town, $postcode, $orderTotal, $orderStatus, $orderDate, $discount); //create object from the logincontr class
 
 
         $order->addToOrder();

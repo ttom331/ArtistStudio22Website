@@ -32,6 +32,7 @@ if (isset($basket) && $basket) {
     $totalCost = 0;
 
     $discount = isset($_SESSION['discount']) ? $_SESSION['discount'] : 0;
+    $_SESSION['discount'] = $discount;
 
     include "classes/checkStock.classes.php";
     $stockChecker = new checkStock(); //new class instence of checkStock.

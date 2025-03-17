@@ -4,13 +4,13 @@
 
 class Order extends Dbh {
 
-    protected function addOrder($customer_ID, $address1, $address2, $town, $postcode, $orderTotal, $orderStatus, $orderDate) {
+    protected function addOrder($customer_ID, $address1, $address2, $town, $postcode, $orderTotal, $orderStatus, $orderDate, $discount) {
         
         // Get the connection once
         $conn = $this->connect();
-        $stmt = $conn->prepare('INSERT INTO orders (user_id, order_total, order_status, order_address1, order_address2, town, postcode, order_Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?);');
+        $stmt = $conn->prepare('INSERT INTO orders (user_id, order_total, order_status, order_address1, order_address2, town, postcode, order_Date, order_Discount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);');
 
-        if ($stmt->execute(array($customer_ID, $orderTotal, $orderStatus, $address1, $address2, $town, $postcode, $orderDate))) {
+        if ($stmt->execute(array($customer_ID, $orderTotal, $orderStatus, $address1, $address2, $town, $postcode, $orderDate, $discount))) {
             // Use lastInsertId on the same connection instance
             $orderID = $conn->lastInsertId();
         } else {

@@ -32,9 +32,12 @@
         <?php 
                     if(isset($_SESSION["userid"]))
                     {
+                        $userID = $_SESSION['userid'];
+                        $username = $_SESSION['user_username'];
+                        $first_letter = substr($username, 0, 1)
                         
                 ?> 
-            <a href="account.php" class="nav-btn-no-style" style=><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path></svg></a>
+            <a href="account.php" class="account-icon" style="text-transform: uppercase; color: black; font-weight: 600;"><p><?php echo $first_letter?></p></a>
             <a href="basket.php" class="nav-btn-no-style"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 22h14c1.103 0 2-.897 2-2V9a1 1 0 0 0-1-1h-3V7c0-2.757-2.243-5-5-5S7 4.243 7 7v1H4a1 1 0 0 0-1 1v11c0 1.103.897 2 2 2zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v1H9V7zm-4 3h2v2h2v-2h6v2h2v-2h2l.002 10H5V10z"></path></svg></a>
             <form class="" action="logout.php" method="post" style="display:inline-flex; display: contents;">
                 <a href="includes/logout.inc.php" class="nav-btn">Sign Out</a>
@@ -56,7 +59,7 @@
     <div class="coverImage">
         <div class="darkness"></div><!--To add a black cover over image -->
         <p class="cover-image-header">Prints</p>
-        <img class="img" style="background-size: cover;" src="assets/coverFinal.jpg" alt="Cover image" />
+        <img class="img" style="background-size: cover;" src="assets/aa-LW-banner-website-Tom---misc4.jpg" alt="Cover image" />
     </div>
     <div class="main-content">
         <hr>
@@ -71,7 +74,7 @@
             $getPrints = new GetPrintSearch();
             $search = $getPrints->search($search);
             if (isset($search) && $search) {
-                $_SESSION['search_message'] = "Search results for '" . $search_result . "'"; ?>
+                $_SESSION['search_message'] = "Search results for '" . $search_result . "'"; ?> 
                 <p class="search-success"><?php echo($_SESSION['search_message'])?></p>
                 <?php
                 foreach ($search as $row) {?>
