@@ -21,45 +21,12 @@
     <script type = "text/javascript" src="/jscomponents/scrollreveal.js"></script>
     <title>Basket</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/header-logo.png" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>s
 
 </head>
 <body>
-<nav>
-        <a class="logo" href="index.php"><img src="assets/logo.jpg"/></a>
-        <ul class="nav-links">
-            <li><a href="index.php" style="text-decoration: underline;">Home</a></li>
-            <li><a href="petPortrait.php">Pet Portraits</a></li>
-            <li><a href="prints.php">Prints</a></li>
-            <li><a href="greetingCards.php">Greetings Cards</a></li>
-            <li><a href="contact.php">Contact</a></li>
-        </ul>
-        <div class="right-nav">
-        <?php 
-                    if(isset($_SESSION["userid"]))
-                    {
-                        $userID = $_SESSION['userid'];
-                        $username = $_SESSION['user_username'];
-                        $first_letter = substr($username, 0, 1)
-                        
-                ?> 
-            <a href="account.php" class="account-icon" style="text-transform: uppercase; color: black; font-weight: 600;"><p><?php echo $first_letter?></p></a>
-            <a href="basket.php" class="nav-btn-no-style"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 22h14c1.103 0 2-.897 2-2V9a1 1 0 0 0-1-1h-3V7c0-2.757-2.243-5-5-5S7 4.243 7 7v1H4a1 1 0 0 0-1 1v11c0 1.103.897 2 2 2zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v1H9V7zm-4 3h2v2h2v-2h6v2h2v-2h2l.002 10H5V10z"></path></svg></a>
-            <form class="" action="logout.php" method="post" style="display:inline-flex; display: contents;">
-                <a href="includes/logout.inc.php" class="nav-btn">Sign Out</a>
-            </form>
-            <i class="fa fa-bars" id="ham-menu"></i>
-            <?php
-                    }
-                    else
-                    {
-                ?>
-                   <a href="login.php" class="nav-btn">Sign In</a>
-                   <i class="fa fa-bars" id="ham-menu"></i>
-                <?php
-                    }
-                ?>
-        </div>
-    </nav>
+    <?php include('components/navigation.php');?> <!--Get navbar  -->
+
     <!-- cover image-->
     <div class="coverImage">
         <div class="darkness"></div><!--To add a black cover over image -->
@@ -85,36 +52,32 @@
                         }
                         ?>
 
-                <ul>
-                    <li style="text-align: center;">
-                        <div>
-                            <img style="width: 80px; height: 80px;" src="/assets/products/<?php echo htmlspecialchars($row['print_Image']);?>" alt="">
-                            <h6 style="color: black; width:80px;"><?php echo htmlspecialchars($row['print_Name']);?></h6>
-                        </div>
-                    </li>
-                    <li>
-                        <small style="color: black;"><span>£</span><?php echo number_format($row['print_Price'] * $row['quantity'],2);?></small>
-                    </li>
-                    
-                    <li><!--edit quantity of the product -->
-                        <form method="POST" action="includes/basket-edit.inc.php" class="basket-form">
-                            <input type="hidden" name="basket_ID" value="<?php echo $row['basket_ID'];?>"/>
-                            <input type="hidden" name="customer_ID" value="<?php echo $row['user_id']; ?>"/>
-                            <div class="quantity-container">
-                                <input name="quantity" type="number" style="width: 20%;" class="quantity-input" value="<?php echo $row['quantity']; ?>" />
-                                <input type="submit" class="basketButtons" value="Edit" name="edit_Quantity"/>
+                        <div class="basket-left">
+                            <div class="basket-image">
+                                <img src="/assets/products/<?php echo htmlspecialchars($row['print_Image']);?>" alt="" style="width: 80px; height: 100px;">
                             </div>
-                        </form>
-                    </li>
-                    <li>
-                        <!-- remove a product from the basket-->
-                        <form method="POST" action="includes/basket-remove.inc.php">
-                            <input type = "hidden" name="print_ID" value="<?php echo $row['basket_ID'];?>"/>
-                            <input type="hidden" name="customer_ID" value="<?php echo $row['user_id']; ?>"/>
-                            <input type="submit" class="basketButtons" name="remove_Print" value="Remove"/>
-                        </form>
-                    </li>
-                </ul>
+                            <div class="basket-item">
+                                <p style="font-size: 14px; text-align: start;"><?php echo htmlspecialchars($row['print_Name']);?></p>
+                                <p style="font-size: 14px; text-align:start"><span>£</span><?php echo number_format($row['print_Price'] * $row['quantity'],2);?></p>
+                                <div class="basket-bottom">
+                                    <form method="POST" action="includes/basket-edit.inc.php">
+                                        <input type="hidden" name="basket_ID" value="<?php echo $row['basket_ID'];?>"/>
+                                        <input type="hidden" name="customer_ID" value="<?php echo $row['user_id']; ?>"/>
+                                        <div class="quantity-container">
+                                            <input name="quantity" type="number"  style=" width: 40px; height: 20px; font-size: 12px;" value="<?php echo $row['quantity']; ?>" />
+                                            <input type="submit" class="basketButtons" value="Edit" name="edit_Quantity"/>
+                                        </div>
+                                    </form>
+                                    <form method="POST" action="includes/basket-remove.inc.php">
+                                        <input type = "hidden" name="print_ID" value="<?php echo $row['basket_ID'];?>"/>
+                                        <input type="hidden" name="customer_ID" value="<?php echo $row['user_id']; ?>"/>
+                                        <div class="quantity-container">
+                                            <input type="submit" class="basketButtons" name="remove_Print" value="Remove"/>
+                                        </div>
+                                    </form>
+                                </div>            
+                            </div>
+                        </div>
                 <?php
                         if (isset($_SESSION['stock_error'])) {
                             ?><p style="font-size: 12px; color: red;"><?php echo $_SESSION['stock_error']; ?></p>
@@ -209,18 +172,9 @@
         </div>
     </div>
     
-
-
-<script>
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topNavigation") {
-    x.className += " responsive";
-  } else {
-    x.className = "topNavigation";
-  }
-}
-</script>
+<script type = "text/javascript" src="/jscomponents/activepage.js"></script>
+<script type = "text/javascript" src="/jscomponents/search.js"></script>
+<script type = "text/javascript" src="/jscomponents/livesearch.js"></script>
 <script src="/jscomponents/navigation.js"></script>
 <script type = "text/javascript" src="/jscomponents/carousel.js"></script>
 

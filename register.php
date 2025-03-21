@@ -44,15 +44,3 @@
 
 
 </body>
-
-
-<script>
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topNavigation") {
-    x.className += " responsive";
-  } else {
-    x.className = "topNavigation";
-  }
-}
-</script>

@@ -20,7 +20,7 @@ class SignupContr extends SignUp{
     //error handlers
 
     public function signupUser(){
-        if($this->emptyInput()== false){
+        if($this->emptyInput()== false){ 
             header("location: ../register.php?error=One of the fields has been left empty!");
             exit();
         }

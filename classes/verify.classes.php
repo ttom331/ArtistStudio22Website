@@ -1,6 +1,6 @@
 <?php
 
-include_once 'classes/dbh.classes.php'; // or use 'require_once' if necessary
+include_once 'classes/dbh.classes.php'; 
 
 class VerifyEmail extends Dbh {
     public function verifyUser($email){
